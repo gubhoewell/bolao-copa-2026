@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bolão Copa 2026 – Point 43 Beach Tennis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #F5C518;
+      --gold-dark: #d4a90e;
+      --black: #0A0A0A;
+      --card: #1A1A1A;
+      --card2: #222222;
+      --white: #FFFFFF;
+      --gray: #888888;
+      --success: #22c55e;
+      --error: #ef4444;
+      --border: #2a2a2a;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(180deg, #111 0%, var(--black) 100%);
+      border-bottom: 2px solid var(--gold);
+      text-align: center;
+      padding: 32px 20px 24px;
+    }
+
+    #logo-point43 {
+      max-height: 60px;
+      margin-bottom: 16px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 7vw, 3.6rem);
+      color: var(--gold);
+      letter-spacing: 2px;
+      line-height: 1.1;
+    }
+
+    header p.subtitle {
+      font-size: clamp(0.9rem, 3vw, 1.15rem);
+      color: #ccc;
+      margin-top: 8px;
+    }
+
+    header p.subtitle strong { color: var(--gold); }
+
+    /* ===== PRIZE BANNER ===== */
+    .prize-banner {
+      background: linear-gradient(135deg, #1c1500 0%, #2e2100 50%, #1c1500 100%);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      max-width: 680px;
+      margin: 28px auto 0;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .prize-icon { font-size: 2.8rem; flex-shrink: 0; }
+
+    .prize-text h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .prize-text p { font-size: 0.9rem; color: #ccc; margin-top: 4px; }
+
+    /* ===== MAIN CONTAINER ===== */
+    main { max-width: 720px; margin: 0 auto; padding: 32px 16px 60px; }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--gold);
+      padding-left: 12px;
+    }
+
+    /* ===== JOGOS CARDS ===== */
+    .games-section { margin-bottom: 40px; }
+
+    .game-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .game-card.locked { opacity: 0.6; border-color: #444; }
+
+    .game-card .flag { font-size: 1.6rem; }
+
+    .game-info { flex: 1; }
+
+    .game-info .teams {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    .game-info .meta { font-size: 0.78rem; color: var(--gray); margin-top: 2px; }
+
+    .game-status {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .game-status.open { background: #052e16; color: var(--success); border: 1px solid var(--success); }
+    .game-status.closed { background: #2d1414; color: var(--error); border: 1px solid var(--error); }
+
+    /* ===== FORMULÁRIO ===== */
+    .form-section { margin-bottom: 40px; }
+
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"] {
+      width: 100%;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    input:focus { border-color: var(--gold); }
+    input:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* Score inputs */
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-team {
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      min-width: 70px;
+    }
+
+    .score-team.right { text-align: right; min-width: 70px; }
+
+    .score-input {
+      width: 64px !important;
+      text-align: center;
+      font-size: 1.3rem !important;
+      font-weight: 700;
+      padding: 8px 4px !important;
+      flex-shrink: 0;
+    }
+
+    .score-x {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--gray);
+    }
+
+    .game-locked-msg {
+      background: #1f0000;
+      border: 1px solid var(--error);
+      color: var(--error);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    /* Checkbox */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      accent-color: var(--gold);
+      margin-top: 2px;
+      cursor: pointer;
+    }
+
+    .checkbox-group label {
+      text-transform: none;
+      font-size: 0.88rem;
+      color: #ccc;
+      letter-spacing: 0;
+      cursor: pointer;
+      font-weight: 400;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      width: 100%;
+    }
+
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-secondary {
+      background: var(--card2);
+      color: var(--white);
+      border: 1px solid var(--border);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0;
+      font-weight: 600;
+    }
+
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-gold-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0;
+      font-weight: 600;
+    }
+
+    .btn-gold-outline:hover { background: var(--gold); color: var(--black); }
+
+    /* Error/success messages */
+    .form-error {
+      background: #2d1414;
+      border: 1px solid var(--error);
+      color: #fca5a5;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* ===== SUCCESS CARD ===== */
+    #success-card {
+      display: none;
+      background: linear-gradient(135deg, #052e16 0%, #0a3d1f 100%);
+      border: 2px solid var(--success);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    #success-card .success-icon { font-size: 3rem; margin-bottom: 12px; }
+
+    #success-card h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--success);
+      margin-bottom: 8px;
+    }
+
+    #success-card p { color: #ccc; font-size: 0.9rem; margin-bottom: 20px; }
+
+    .palpite-summary {
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      padding: 16px;
+      margin: 16px 0;
+      text-align: left;
+    }
+
+    .palpite-summary .palpite-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.88rem;
+    }
+
+    .palpite-summary .palpite-item:last-child { border-bottom: none; }
+    .palpite-summary .palpite-item .score { font-weight: 700; color: var(--gold); font-size: 1rem; }
+
+    /* ===== SHARE SECTION ===== */
+    .share-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .share-section h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .share-section p { font-size: 0.85rem; color: var(--gray); margin-bottom: 16px; }
+
+    .share-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+
+    #qrcode-container { display: flex; justify-content: center; margin-top: 16px; }
+    #qrcode-container canvas, #qrcode-container img { border-radius: 8px; border: 4px solid var(--white); }
+
+    .copy-feedback {
+      display: inline-block;
+      background: var(--success);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 8px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .copy-feedback.show { opacity: 1; }
+
+    /* ===== REGRAS ===== */
+    .rules-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .rules-section ul { list-style: none; }
+    .rules-section ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: #ccc;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .rules-section ul li:last-child { border-bottom: none; }
+    .rules-section ul li::before { content: "▸"; color: var(--gold); flex-shrink: 0; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      border-top: 1px solid var(--border);
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
+
+    footer strong { color: var(--gold); }
+
+    /* ===== ADMIN SECTION ===== */
+    #admin-section {
+      display: none;
+      margin-top: 48px;
+      border-top: 3px solid var(--gold);
+      padding-top: 32px;
+    }
+
+    .admin-header {
+      background: #1c1500;
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-header span { font-size: 1.6rem; }
+
+    .admin-header div h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+    }
+
+    .admin-header div p { font-size: 0.82rem; color: var(--gray); }
+
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-card .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--gold);
+    }
+
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--gray); }
+
+    /* Resultados admin */
+    .admin-results {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .admin-results h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .result-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .result-input-row label {
+      min-width: 180px;
+      text-transform: none;
+      font-size: 0.85rem;
+      color: #ccc;
+      font-weight: 500;
+      letter-spacing: 0;
+      margin-bottom: 0;
+    }
+
+    .result-score-inputs { display: flex; align-items: center; gap: 6px; }
+
+    /* Tabela admin */
+    .admin-table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+
+    thead { background: #1c1500; }
+
+    th {
+      padding: 12px 14px;
+      text-align: left;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    tr:hover td { background: rgba(245,197,24,0.04); }
+
+    tr.winner td { background: rgba(34,197,94,0.08); }
+    tr.winner td:first-child { border-left: 3px solid var(--success); }
+
+    .badge-winner {
+      background: var(--success);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .admin-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+
+    /* Paginação */
+    .pagination { display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .page-btn {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover, .page-btn.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in { animation: fadeInUp 0.5s ease forwards; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 500px) {
+      .prize-banner { flex-direction: column; text-align: center; }
+      .form-card { padding: 20px 16px; }
+      .score-team { min-width: 55px; font-size: 0.78rem; }
+      .score-input { width: 52px !important; }
+      .admin-actions { flex-direction: column; }
+      .admin-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <img id="logo-point43" src="logo.png" alt="Point 43" onerror="this.style.display='none'">
+  <h1>🏆 BOLÃO COPA 2026<br>POINT 43</h1>
+  <p class="subtitle">Acerte os 3 placares do Brasil e ganhe <strong>R$300 na academia!</strong></p>
+
+  <div class="prize-banner">
+    <div class="prize-icon">🇧🇷</div>
+    <div class="prize-text">
+      <h2>PRÊMIO: R$300 EM CRÉDITOS</h2>
+      <p>Acerte os 3 placares exatos da fase de grupos e ganhe R$300 em créditos e serviços na Point 43. Múltiplos vencedores = todos ganham!</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main>
+
+  <!-- JOGOS -->
+  <section class="games-section">
+    <h2 class="section-title">JOGOS DO BRASIL</h2>
+    <div id="games-list">
+      <!-- Renderizado via JS -->
+    </div>
+  </section>
+
+  <!-- FORMULÁRIO ou CARD DE SUCESSO -->
+  <section class="form-section">
+    <h2 class="section-title">SEU PALPITE</h2>
+
+    <!-- Card de sucesso (oculto por padrão) -->
+    <div id="success-card">
+      <div class="success-icon">🎉</div>
+      <h2>PALPITE REGISTRADO!</h2>
+      <p>Boa sorte, torcedor! Que o Brasil mande ver! 🇧🇷⚽</p>
+      <div id="palpite-summary" class="palpite-summary"></div>
+      <p style="font-size:0.8rem; color: var(--gray); margin-top:12px;">Compartilhe o bolão com seus amigos ⬇️</p>
+    </div>
+
+    <!-- Formulário -->
+    <div id="form-card" class="form-card">
+      <div id="form-error" class="form-error"></div>
+
+      <div class="form-group">
+        <label for="input-nome">Nome completo</label>
+        <input type="text" id="input-nome" placeholder="Ex: João da Silva" autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label for="input-whatsapp">WhatsApp</label>
+        <input type="tel" id="input-whatsapp" placeholder="(11) 99999-9999" maxlength="15" autocomplete="tel">
+      </div>
+
+      <!-- Palpites (renderizados via JS) -->
+      <div id="score-inputs"></div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="checkbox-aceite" checked>
+        <label for="checkbox-aceite">Concordo em receber comunicações da Point 43 via WhatsApp</label>
+      </div>
+
+      <button class="btn btn-primary" id="btn-submit" onclick="submitForm()">
+        ⚽ ENVIAR PALPITE
+      </button>
+    </div>
+  </section>
+
+  <!-- COMPARTILHAR -->
+  <section class="share-section">
+    <h3>📲 COMPARTILHE O BOLÃO</h3>
+    <p>Chame seus amigos e mande o link ou QR Code</p>
+    <div class="share-buttons">
+      <button class="btn btn-gold-outline" onclick="copyLink()">🔗 Copiar Link</button>
+      <a class="btn btn-secondary" id="btn-whatsapp-share" href="#" onclick="shareWhatsApp(event)">💬 Compartilhar no WhatsApp</a>
+    </div>
+    <span class="copy-feedback" id="copy-feedback">✓ Link copiado!</span>
+    <div id="qrcode-container"></div>
+  </section>
+
+  <!-- REGRAS -->
+  <section class="rules-section">
+    <h2 class="section-title">REGRAS</h2>
+    <ul>
+      <li>Palpite o <strong>placar exato</strong> dos 3 jogos do Brasil na fase de grupos</li>
+      <li>Quem acertar os 3 placares exatos <strong>ganha R$300 em créditos</strong> na Point 43</li>
+      <li>Se múltiplas pessoas acertarem tudo, <strong>todas ganham</strong> o prêmio</li>
+      <li>Cada participante pode se inscrever <strong>uma única vez</strong> por número de WhatsApp</li>
+      <li>Os palpites de cada jogo ficam abertos até o <strong>horário de início da partida</strong></li>
+      <li>O prêmio é válido em créditos e serviços na <strong>Point 43 Londrina</strong></li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- ===== ADMIN SECTION ===== -->
+<div id="admin-section">
+  <main>
+    <div class="admin-header">
+      <span>🔐</span>
+      <div>
+        <h3>PAINEL ADMINISTRATIVO</h3>
+        <p>Acesso restrito — Point 43</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="admin-stats">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Total de participantes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-winners">–</div>
+        <div class="stat-label">Vencedores (3 certos)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-partial">–</div>
+        <div class="stat-label">Parcial (1-2 certos)</div>
+      </div>
+    </div>
+
+    <!-- Inserir resultados reais -->
+    <div class="admin-results">
+      <h4>RESULTADOS REAIS</h4>
+      <div class="result-input-row">
+        <label>🇧🇷 Brasil x Marrocos 🇲🇦</label>
+        <div class="result-score-inputs">
+          <input type="number" class="score-input" id="res-j1-a" min="0" max="20" placeholder="0">
+          <span class="score-x">x</span>
+          <input type="number" class="score-input" id="res-j1-b" min="0" max="20" placeholder="0">
+        </div>
+      </div>
+      <div class="result-input-row">
+        <label>🇧🇷 Brasil x Haiti 🇭🇹</label>
+        <div class="result-score-inputs">
+          <input type="number" class="score-input" id="res-j2-a" min="0" max="20" placeholder="0">
+          <span class="score-x">x</span>
+          <input type="number" class="score-input" id="res-j2-b" min="0" max="20" placeholder="0">
+        </div>
+      </div>
+      <div class="result-input-row">
+        <label>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia x Brasil 🇧🇷</label>
+        <div class="result-score-inputs">
+          <input type="number" class="score-input" id="res-j3-a" min="0" max="20" placeholder="0">
+          <span class="score-x">x</span>
+          <input type="number" class="score-input" id="res-j3-b" min="0" max="20" placeholder="0">
+        </div>
+      </div>
+      <button class="btn btn-gold-outline" style="margin-top:12px; font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:600; letter-spacing:0;" onclick="calcularVencedores()">
+        🏆 Calcular Vencedores
+      </button>
+    </div>
+
+    <!-- Ações -->
+    <div class="admin-actions">
+      <button class="btn btn-secondary" onclick="exportCSV(false)">📥 Exportar CSV Completo</button>
+      <button class="btn btn-secondary" onclick="exportCSV(true)" id="btn-export-winners" disabled>🏆 Exportar CSV – Vencedores</button>
+      <button class="btn btn-secondary" onclick="clearAllData()" style="color:#ef4444; border-color:#ef4444;">🗑 Limpar Todos os Dados</button>
+    </div>
+
+    <!-- Tabela -->
+    <h2 class="section-title">TODOS OS PALPITES</h2>
+    <div class="admin-table-wrap">
+      <table id="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>WhatsApp</th>
+            <th>BRA x MAR</th>
+            <th>BRA x HAI</th>
+            <th>ESC x BRA</th>
+            <th>Data/Hora</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="admin-table-body">
+          <tr><td colspan="8" style="text-align:center; color:var(--gray); padding:24px;">Nenhum palpite registrado ainda.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </main>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p><strong>Point 43 Beach Tennis</strong> · Rua José Monteiro de Mello, 122 – Jardim do Lago, Londrina/PR</p>
+  <p style="margin-top:6px;">Bolão apenas para fins de entretenimento. Créditos válidos nos serviços da academia.</p>
+</footer>
+
+<script>
+// ===== CONFIGURAÇÃO DOS JOGOS =====
+// Horários em UTC-3 (Brasília): construídos com Date UTC para evitar fuso do navegador
+const JOGOS = [
+  {
+    id: 'j1',
+    times: ['🇧🇷 Brasil', '🇲🇦 Marrocos'],
+    // 13/06/2026 19:00 BRT = 13/06/2026 22:00 UTC
+    deadline: new Date('2026-06-13T22:00:00Z'),
+    data: 'Sáb, 13/06/2026 às 19h00',
+    local: 'MetLife Stadium – Nova Jersey',
+    labelA: 'Brasil',
+    labelB: 'Marrocos',
+    flagA: '🇧🇷',
+    flagB: '🇲🇦'
+  },
+  {
+    id: 'j2',
+    times: ['🇧🇷 Brasil', '🇭🇹 Haiti'],
+    // 19/06/2026 21:30 BRT = 20/06/2026 00:30 UTC
+    deadline: new Date('2026-06-20T00:30:00Z'),
+    data: 'Sex, 19/06/2026 às 21h30',
+    local: 'Lincoln Financial Field – Filadélfia',
+    labelA: 'Brasil',
+    labelB: 'Haiti',
+    flagA: '🇧🇷',
+    flagB: '🇭🇹'
+  },
+  {
+    id: 'j3',
+    times: ['🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia', '🇧🇷 Brasil'],
+    // 24/06/2026 19:00 BRT = 24/06/2026 22:00 UTC
+    deadline: new Date('2026-06-24T22:00:00Z'),
+    data: 'Qua, 24/06/2026 às 19h00',
+    local: 'Hard Rock Stadium – Miami',
+    labelA: 'Escócia',
+    labelB: 'Brasil',
+    flagA: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+    flagB: '🇧🇷'
+  }
+];
+
+// ===== WEBHOOK MAKE =====
+// Cole aqui a URL do webhook criado no Make (módulo "Custom webhook")
+// Exemplo: https://hook.us2.make.com/xxxxxxxxxxxxxxxxxxxxxxxx
+const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/eecjsc1rf12gug79xr1geklwimixocaf';
+
+const STORAGE_KEY = 'bolao_point43_palpites';
+const PAGE_SIZE = 20;
+let currentPage = 1;
+let winnersCalculated = false;
+let winnersSet = new Set(); // WhatsApps dos vencedores
+
+// ===== UTILIDADES =====
+function getAgora() { return new Date(); }
+
+function isLocked(jogo) { return getAgora() >= jogo.deadline; }
+
+function formatPhone(v) {
+  let d = v.replace(/\D/g, '');
+  if (d.length > 11) d = d.slice(0, 11);
+  if (d.length > 7) return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+  if (d.length > 2) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+  if (d.length > 0) return `(${d}`;
+  return d;
+}
+
+function getPalpites() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch { return []; }
+}
+
+function savePalpite(p) {
+  const arr = getPalpites();
+  arr.push(p);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+}
+
+function showError(msg) {
+  const el = document.getElementById('form-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideError() {
+  document.getElementById('form-error').style.display = 'none';
+}
+
+// ===== RENDER JOGOS (lista de cards info) =====
+function renderGames() {
+  const container = document.getElementById('games-list');
+  container.innerHTML = JOGOS.map(j => {
+    const locked = isLocked(j);
+    return `
+      <div class="game-card ${locked ? 'locked' : ''}">
+        <span class="flag">${j.flagA}${j.flagB}</span>
+        <div class="game-info">
+          <div class="teams">${j.labelA} × ${j.labelB}</div>
+          <div class="meta">${j.data} · ${j.local}</div>
+          ${locked ? `<div style="font-size:0.75rem; color:var(--error); margin-top:4px;">⛔ Encerrado – palpites bloqueados</div>` : ''}
+        </div>
+        <span class="game-status ${locked ? 'closed' : 'open'}">${locked ? 'Encerrado' : 'Aberto'}</span>
+      </div>`;
+  }).join('');
+}
+
+// ===== RENDER SCORE INPUTS =====
+function renderScoreInputs() {
+  const container = document.getElementById('score-inputs');
+  container.innerHTML = JOGOS.map(j => {
+    const locked = isLocked(j);
+    return `
+      <div class="form-group">
+        <label>${j.flagA} ${j.labelA} × ${j.labelB} ${j.flagB}</label>
+        ${locked
+          ? `<div class="game-locked-msg">⛔ Prazo encerrado — palpites não são mais aceitos para este jogo</div>`
+          : `<div class="score-row">
+              <span class="score-team">${j.labelA}</span>
+              <input type="number" class="score-input" id="score-${j.id}-a" min="0" max="20" placeholder="0">
+              <span class="score-x">×</span>
+              <input type="number" class="score-input" id="score-${j.id}-b" min="0" max="20" placeholder="0">
+              <span class="score-team right">${j.labelB}</span>
+            </div>`
+        }
+      </div>`;
+  }).join('');
+}
+
+// ===== MÁSCARA DE TELEFONE =====
+document.addEventListener('DOMContentLoaded', () => {
+  const tel = document.getElementById('input-whatsapp');
+  tel.addEventListener('input', (e) => {
+    e.target.value = formatPhone(e.target.value);
+  });
+});
+
+// ===== SUBMIT =====
+async function submitForm() {
+  hideError();
+
+  const nome = document.getElementById('input-nome').value.trim();
+  const whatsapp = document.getElementById('input-whatsapp').value.trim();
+  const aceite = document.getElementById('checkbox-aceite').checked;
+
+  if (!nome) { showError('Por favor, informe seu nome completo.'); return; }
+  if (!whatsapp || whatsapp.replace(/\D/g,'').length < 10) {
+    showError('Por favor, informe um WhatsApp válido.'); return;
+  }
+
+  // Checa duplicata
+  const existentes = getPalpites();
+  const wClean = whatsapp.replace(/\D/g,'');
+  if (existentes.some(p => p.whatsapp.replace(/\D/g,'') === wClean)) {
+    showError('Este número já participou do bolão. Apenas um palpite por WhatsApp!'); return;
+  }
+
+  // Coleta palpites
+  const palpites = {};
+  let allOpen = true;
+
+  for (const j of JOGOS) {
+    if (isLocked(j)) {
+      // Jogo encerrado — salva null (não palpitou a tempo)
+      palpites[j.id] = null;
+      continue;
+    }
+    allOpen = false; // há ao menos um aberto
+    const a = document.getElementById(`score-${j.id}-a`);
+    const b = document.getElementById(`score-${j.id}-b`);
+    const va = a ? parseInt(a.value) : NaN;
+    const vb = b ? parseInt(b.value) : NaN;
+
+    if (isNaN(va) || isNaN(vb) || a.value === '' || b.value === '') {
+      showError(`Informe o placar do jogo ${j.labelA} × ${j.labelB}.`); return;
+    }
+    if (va < 0 || va > 20 || vb < 0 || vb > 20) {
+      showError(`Placar inválido no jogo ${j.labelA} × ${j.labelB}. Use valores entre 0 e 20.`); return;
+    }
+    palpites[j.id] = `${va}-${vb}`;
+  }
+
+  // Verifica se todos os jogos abertos foram preenchidos
+  const algumAberto = JOGOS.some(j => !isLocked(j));
+  if (!algumAberto) {
+    showError('Todos os jogos já encerraram. Não é possível cadastrar novos palpites.'); return;
+  }
+
+  const registro = {
+    nome,
+    whatsapp,
+    aceite,
+    j1: palpites['j1'],
+    j2: palpites['j2'],
+    j3: palpites['j3'],
+    dataHora: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+  };
+
+  // Salva localmente (backup)
+  savePalpite(registro);
+
+  // ===== ENVIA PARA O MAKE =====
+  // Desabilita botão enquanto envia
+  const btnSubmit = document.getElementById('btn-submit');
+  btnSubmit.disabled = true;
+  btnSubmit.textContent = 'Enviando...';
+
+  const enviarParaMake = async () => {
+    if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL === 'SUA_URL_AQUI') return; // webhook não configurado ainda
+
+    try {
+      await fetch(MAKE_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: registro.nome,
+          whatsapp: registro.whatsapp,
+          aceite_whatsapp: registro.aceite ? 'sim' : 'não',
+          placar_brasil_x_marrocos: registro.j1 || 'encerrado',
+          placar_brasil_x_haiti:    registro.j2 || 'encerrado',
+          placar_escocia_x_brasil:  registro.j3 || 'encerrado',
+          data_hora_inscricao:      registro.dataHora
+        })
+      });
+    } catch (err) {
+      // Falha silenciosa — dado já está salvo no localStorage
+      console.warn('Webhook Make não respondeu:', err);
+    }
+  };
+
+  await enviarParaMake();
+  btnSubmit.disabled = false;
+
+  // Mostra sucesso
+  document.getElementById('form-card').style.display = 'none';
+  const successCard = document.getElementById('success-card');
+  successCard.style.display = 'block';
+  successCard.classList.add('animate-in');
+
+  const summary = document.getElementById('palpite-summary');
+  summary.innerHTML = `
+    <div class="palpite-item"><span>Participante</span><strong>${nome}</strong></div>
+    <div class="palpite-item"><span>WhatsApp</span><span>${whatsapp}</span></div>
+    ${JOGOS.map(j => {
+      const s = registro[j.id];
+      return `<div class="palpite-item">
+        <span>${j.flagA} ${j.labelA} × ${j.labelB} ${j.flagB}</span>
+        <span class="score">${s ? s.replace('-',' × ') : '⛔ Encerrado'}</span>
+      </div>`;
+    }).join('')}
+  `;
+
+  successCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ===== COMPARTILHAMENTO =====
+function copyLink() {
+  const url = window.location.href.split('?')[0];
+  navigator.clipboard.writeText(url).then(() => {
+    const fb = document.getElementById('copy-feedback');
+    fb.classList.add('show');
+    setTimeout(() => fb.classList.remove('show'), 2500);
+  }).catch(() => {
+    // fallback
+    const el = document.createElement('textarea');
+    el.value = url;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    const fb = document.getElementById('copy-feedback');
+    fb.classList.add('show');
+    setTimeout(() => fb.classList.remove('show'), 2500);
+  });
+}
+
+function shareWhatsApp(e) {
+  e.preventDefault();
+  const url = window.location.href.split('?')[0];
+  const msg = encodeURIComponent(`BOLAO COPA 2026 - POINT 43\n\nAcerte os 3 placares do Brasil e ganhe R$300 na academia!\n\nFaca seu palpite: ${url}`);
+  window.open(`https://wa.me/?text=${msg}`, '_blank');
+}
+
+function generateQRCode() {
+  const container = document.getElementById('qrcode-container');
+  const url = window.location.href.split('?')[0];
+  if (window.QRCode) {
+    container.innerHTML = '';
+    new QRCode(container, {
+      text: url,
+      width: 160,
+      height: 160,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+}
+
+// ===== ADMIN =====
+function isAdmin() {
+  return new URLSearchParams(window.location.search).get('admin') === 'point43';
+}
+
+function renderAdminTable(data, page) {
+  const tbody = document.getElementById('admin-table-body');
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:var(--gray); padding:24px;">Nenhum palpite registrado ainda.</td></tr>';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  const start = (page - 1) * PAGE_SIZE;
+  const slice = data.slice(start, start + PAGE_SIZE);
+
+  tbody.innerHTML = slice.map((p, i) => {
+    const isWinner = winnersCalculated && winnersSet.has(p.whatsapp.replace(/\D/g,''));
+    return `<tr class="${isWinner ? 'winner' : ''}">
+      <td>${start + i + 1}</td>
+      <td>${p.nome}</td>
+      <td>${p.whatsapp}</td>
+      <td>${p.j1 ? p.j1.replace('-',' × ') : '–'}</td>
+      <td>${p.j2 ? p.j2.replace('-',' × ') : '–'}</td>
+      <td>${p.j3 ? p.j3.replace('-',' × ') : '–'}</td>
+      <td>${p.dataHora}</td>
+      <td>${isWinner ? '<span class="badge-winner">🏆 VENCEDOR</span>' : (winnersCalculated ? '–' : '<span style="color:var(--gray)">pendente</span>')}</td>
+    </tr>`;
+  }).join('');
+
+  // Paginação
+  const totalPages = Math.ceil(data.length / PAGE_SIZE);
+  const pag = document.getElementById('pagination');
+  if (totalPages <= 1) { pag.innerHTML = ''; return; }
+  let html = '';
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="page-btn ${i === page ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  pag.innerHTML = html;
+}
+
+function goPage(p) {
+  currentPage = p;
+  renderAdminTable(getPalpites(), currentPage);
+}
+
+function updateStats() {
+  const data = getPalpites();
+  document.getElementById('stat-total').textContent = data.length;
+  if (winnersCalculated) {
+    document.getElementById('stat-winners').textContent = winnersSet.size;
+    // parcial: acertou 1 ou 2 dos 3
+    const res = getResultados();
+    const partial = data.filter(p => {
+      let hits = 0;
+      if (res.j1 && p.j1 === res.j1) hits++;
+      if (res.j2 && p.j2 === res.j2) hits++;
+      if (res.j3 && p.j3 === res.j3) hits++;
+      return hits > 0 && hits < 3;
+    }).length;
+    document.getElementById('stat-partial').textContent = partial;
+  }
+}
+
+function getResultados() {
+  const get = (id) => {
+    const a = document.getElementById(`res-${id}-a`);
+    const b = document.getElementById(`res-${id}-b`);
+    if (!a || !b || a.value === '' || b.value === '') return null;
+    return `${parseInt(a.value)}-${parseInt(b.value)}`;
+  };
+  return { j1: get('j1'), j2: get('j2'), j3: get('j3') };
+}
+
+function calcularVencedores() {
+  const res = getResultados();
+  if (!res.j1 && !res.j2 && !res.j3) {
+    alert('Insira pelo menos um resultado real para calcular.'); return;
+  }
+
+  const data = getPalpites();
+  winnersSet.clear();
+
+  data.forEach(p => {
+    let hits = 0;
+    if (res.j1 && p.j1 === res.j1) hits++;
+    if (res.j2 && p.j2 === res.j2) hits++;
+    if (res.j3 && p.j3 === res.j3) hits++;
+    if (hits === 3) winnersSet.add(p.whatsapp.replace(/\D/g,''));
+  });
+
+  winnersCalculated = true;
+  document.getElementById('btn-export-winners').disabled = false;
+  updateStats();
+  renderAdminTable(data, currentPage);
+
+  const msg = winnersSet.size === 0
+    ? '😢 Nenhum participante acertou os 3 placares.'
+    : `🏆 ${winnersSet.size} vencedor(es) encontrado(s)! Linhas destacadas em verde.`;
+  alert(msg);
+}
+
+function exportCSV(apenasVencedores) {
+  const data = getPalpites();
+  const res = getResultados();
+
+  let rows = data;
+  if (apenasVencedores) {
+    rows = data.filter(p => winnersSet.has(p.whatsapp.replace(/\D/g,'')));
+  }
+
+  if (!rows.length) { alert('Nenhum registro para exportar.'); return; }
+
+  const header = 'nome,whatsapp,placar_jogo1,placar_jogo2,placar_jogo3,data_hora_inscricao,aceite_whatsapp\n';
+  const csv = header + rows.map(p =>
+    [p.nome, p.whatsapp, p.j1 || '', p.j2 || '', p.j3 || '', p.dataHora, p.aceite ? 'sim' : 'não']
+    .map(v => `"${String(v).replace(/"/g,'""')}"`)
+    .join(',')
+  ).join('\n');
+
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = apenasVencedores ? 'bolao_point43_vencedores.csv' : 'bolao_point43_completo.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function clearAllData() {
+  if (!confirm('⚠️ Tem certeza? Isso irá apagar TODOS os palpites permanentemente.')) return;
+  if (!confirm('Confirmação final: apagar todos os dados do bolão?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  winnersSet.clear();
+  winnersCalculated = false;
+  document.getElementById('btn-export-winners').disabled = true;
+  updateStats();
+  renderAdminTable([], 1);
+  alert('Dados apagados com sucesso.');
+}
+
+// ===== INICIALIZAÇÃO =====
+document.addEventListener('DOMContentLoaded', () => {
+  renderGames();
+  renderScoreInputs();
+  generateQRCode();
+
+  // Checa se já participou
+  const tel = document.getElementById('input-whatsapp');
+  tel.addEventListener('blur', () => {
+    const wClean = tel.value.replace(/\D/g,'');
+    if (wClean.length >= 10) {
+      const existentes = getPalpites();
+      if (existentes.some(p => p.whatsapp.replace(/\D/g,'') === wClean)) {
+        showError('Este número já participou do bolão. Apenas um palpite por WhatsApp!');
+      } else {
+        hideError();
+      }
+    }
+  });
+
+  // Modo admin
+  if (isAdmin()) {
+    document.getElementById('admin-section').style.display = 'block';
+    updateStats();
+    renderAdminTable(getPalpites(), currentPage);
+  }
+});
+</script>
+
+</body>
+</html>
