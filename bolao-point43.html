@@ -118,7 +118,7 @@
 
     .game-card.locked { opacity: 0.6; border-color: #444; }
 
-    .game-card .flag { font-size: 1.6rem; }
+    .game-card .flag { font-size: 0.75rem; font-weight: 800; color: var(--gold); letter-spacing: 1px; display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 36px; }
 
     .game-info { flex: 1; }
 
@@ -797,39 +797,39 @@
 const JOGOS = [
   {
     id: 'j1',
-    times: ['🇧🇷 Brasil', '🇲🇦 Marrocos'],
+    times: ['BRA Brasil', 'MAR Marrocos'],
     // 13/06/2026 19:00 BRT = 13/06/2026 22:00 UTC
     deadline: new Date('2026-06-13T22:00:00Z'),
     data: 'Sáb, 13/06/2026 às 19h00',
     local: 'MetLife Stadium – Nova Jersey',
     labelA: 'Brasil',
     labelB: 'Marrocos',
-    flagA: '🇧🇷',
-    flagB: '🇲🇦'
+    flagA: 'BRA',
+    flagB: 'MAR'
   },
   {
     id: 'j2',
-    times: ['🇧🇷 Brasil', '🇭🇹 Haiti'],
+    times: ['BRA Brasil', 'HAI Haiti'],
     // 19/06/2026 21:30 BRT = 20/06/2026 00:30 UTC
     deadline: new Date('2026-06-20T00:30:00Z'),
     data: 'Sex, 19/06/2026 às 21h30',
     local: 'Lincoln Financial Field – Filadélfia',
     labelA: 'Brasil',
     labelB: 'Haiti',
-    flagA: '🇧🇷',
-    flagB: '🇭🇹'
+    flagA: 'BRA',
+    flagB: 'HAI'
   },
   {
     id: 'j3',
-    times: ['🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia', '🇧🇷 Brasil'],
+    times: ['ESC Escócia', 'BRA Brasil'],
     // 24/06/2026 19:00 BRT = 24/06/2026 22:00 UTC
     deadline: new Date('2026-06-24T22:00:00Z'),
     data: 'Qua, 24/06/2026 às 19h00',
     local: 'Hard Rock Stadium – Miami',
     labelA: 'Escócia',
     labelB: 'Brasil',
-    flagA: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-    flagB: '🇧🇷'
+    flagA: 'ESC',
+    flagB: 'BRA'
   }
 ];
 
@@ -887,7 +887,7 @@ function renderGames() {
     const locked = isLocked(j);
     return `
       <div class="game-card ${locked ? 'locked' : ''}">
-        <span class="flag">${j.flagA}${j.flagB}</span>
+        <span class="flag"><span>${j.flagA}</span><span>${j.flagB}</span></span>
         <div class="game-info">
           <div class="teams">${j.labelA} × ${j.labelB}</div>
           <div class="meta">${j.data} · ${j.local}</div>
