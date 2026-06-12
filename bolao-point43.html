@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bolão Copa 2026 – Point 43 Beach Tennis</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -378,8 +378,6 @@
 
     .share-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
 
-    #qrcode-container { display: flex; justify-content: center; margin-top: 16px; }
-    #qrcode-container canvas, #qrcode-container img { border-radius: 8px; border: 4px solid var(--white); }
 
     .copy-feedback {
       display: inline-block;
@@ -674,24 +672,22 @@
   <!-- COMPARTILHAR -->
   <section class="share-section">
     <h3>📲 COMPARTILHE O BOLÃO</h3>
-    <p>Chame seus amigos e mande o link ou QR Code</p>
+    <p>Chame seus amigos e mande o link</p>
     <div class="share-buttons">
       <button class="btn btn-gold-outline" onclick="copyLink()">🔗 Copiar Link</button>
       <a class="btn btn-secondary" id="btn-whatsapp-share" href="#" onclick="shareWhatsApp(event)">💬 Compartilhar no WhatsApp</a>
     </div>
     <span class="copy-feedback" id="copy-feedback">✓ Link copiado!</span>
-    <div id="qrcode-container"></div>
   </section>
 
   <!-- REGRAS -->
   <section class="rules-section">
     <h2 class="section-title">REGRAS</h2>
     <ul>
-      <li>Palpite o <strong>placar exato</strong> dos 3 jogos do Brasil na fase de grupos</li>
-      <li>Quem acertar os 3 placares exatos <strong>ganha R$300 em créditos</strong> na Point 43</li>
+      <li>Para <strong>ganhar os R$300</strong>, você precisa acertar os <strong>3 placares exatos</strong> — portanto palpite os 3 jogos <strong>antes de 13/06 às 19h</strong> (horário do primeiro jogo)</li>
+      <li>Após o início de cada partida, o campo daquele jogo é <strong>bloqueado automaticamente</strong></li>
       <li>Se múltiplas pessoas acertarem tudo, <strong>todas ganham</strong> o prêmio</li>
       <li>Cada participante pode se inscrever <strong>uma única vez</strong> por número de WhatsApp</li>
-      <li>Os palpites de cada jogo ficam abertos até o <strong>horário de início da partida</strong></li>
       <li>O prêmio é válido em créditos e serviços na <strong>Point 43 Londrina</strong></li>
     </ul>
   </section>
@@ -1078,21 +1074,6 @@ function shareWhatsApp(e) {
   window.open(`https://wa.me/?text=${msg}`, '_blank');
 }
 
-function generateQRCode() {
-  const container = document.getElementById('qrcode-container');
-  const url = window.location.href.split('?')[0];
-  if (window.QRCode) {
-    container.innerHTML = '';
-    new QRCode(container, {
-      text: url,
-      width: 160,
-      height: 160,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  }
-}
 
 // ===== ADMIN =====
 function isAdmin() {
@@ -1239,7 +1220,6 @@ function clearAllData() {
 document.addEventListener('DOMContentLoaded', () => {
   renderGames();
   renderScoreInputs();
-  generateQRCode();
 
   // Checa se já participou
   const tel = document.getElementById('input-whatsapp');
